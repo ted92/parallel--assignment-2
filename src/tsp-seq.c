@@ -72,9 +72,9 @@ double zEuclidDist(int from, int to){
     
 void zReadRoute(){
   int i,j;
-    
-  scanf("%d",&iSize);
 
+  printf("\n---size---\n");
+  scanf("%d",&iSize);
   daaDistanceTable=(double **)malloc(sizeof(double*)*iSize);
   for(i=0;i<iSize;i++)
     daaDistanceTable[i]=(double *)malloc(sizeof(double)*iSize);
@@ -83,6 +83,7 @@ void zReadRoute(){
   iaaYCoors=(int *)malloc(sizeof(int)*iSize);
   
   for(i=0;i<iSize;i++){
+    printf("\n---distance---\n");
     scanf("%d %d",&(iaaXCoors[i]), &(iaaYCoors[i]));
     //printf("%d %d\n", iaaXCoors[i], iaaYCoors[i]);
   }
@@ -114,18 +115,16 @@ main() {
   cRouteDefinition res, *r=&res;
   double start, stop;
 
-  printf("\n---first---\n");
   zReadRoute();
-  printf("\n---second---\n");
+
   oOriginalRoute=(cRouteDefinition*)malloc(sizeof(cRouteDefinition));
-  printf("\n---third---\n");
+
   for(i=0; i<iSize; i++)
     oOriginalRoute->baPath[i]=(byte)i;
-  printf("\n---fourth---\n");
+
   oOriginalRoute->dLength=0.0;
   oOriginalRoute->iSet=1;
-
-  printf("\n---fifth---\n");
+  
   start=second();
   zRoute(oOriginalRoute,&r);  //Find the best route:)
   stop=second();
