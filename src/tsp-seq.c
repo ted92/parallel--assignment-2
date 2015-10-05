@@ -8,6 +8,8 @@
 
 #include <math.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
 typedef unsigned char byte;
 
@@ -112,15 +114,18 @@ main() {
   cRouteDefinition res, *r=&res;
   double start, stop;
 
+  printf("\n---first---\n");
   zReadRoute();
-  
+  printf("\n---second---\n");
   oOriginalRoute=(cRouteDefinition*)malloc(sizeof(cRouteDefinition));
+  printf("\n---third---\n");
   for(i=0; i<iSize; i++)
     oOriginalRoute->baPath[i]=(byte)i;
-  
+  printf("\n---fourth---\n");
   oOriginalRoute->dLength=0.0;
   oOriginalRoute->iSet=1;
 
+  printf("\n---fifth---\n");
   start=second();
   zRoute(oOriginalRoute,&r);  //Find the best route:)
   stop=second();
