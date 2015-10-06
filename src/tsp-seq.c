@@ -11,8 +11,7 @@
 #include <stdio.h>
 #include <string.h>
 
-// size is the number of the cities that the traveller has to cross, max x and max y are the coordinates max of the map
-int size;
+// max x and max y are the coordinates max of the map
 int max_x;
 int max_y;
 
@@ -24,8 +23,9 @@ typedef struct {
   byte baPath[128];
 } cRouteDefinition;
 
-
+// size of the path
 int iSize;
+
 int *iaaXCoors; 
 int *iaaYCoors; 
 double **daaDistanceTable;
@@ -79,20 +79,20 @@ double zEuclidDist(int from, int to){
 // generate random number given a range from 0 to max
 // Assumes 0 <= max <= RAND_MAX
 // Returns in the half-open interval [0, max]
-long random_at_most(long max) {
-  unsigned long
+int random_at_most(int max) {
+  unsigned int
   // max <= RAND_MAX < ULONG_MAX, so this is okay.
-          num_bins = (unsigned long) max + 1,
-          num_rand = (unsigned long) RAND_MAX + 1,
+          num_bins = (unsigned int) max + 1,
+          num_rand = (unsigned int) RAND_MAX + 1,
           bin_size = num_rand / num_bins,
           defect   = num_rand % num_bins;
 
-  long x;
+  int x;
   do {
     x = random();
   }
     // This is carefully written not to overflow
-  while (num_rand - defect <= (unsigned long)x);
+  while (num_rand - defect <= (unsigned int)x);
 
   // Truncated division is intentional
   return x/bin_size;
@@ -102,7 +102,6 @@ long random_at_most(long max) {
 void zReadRoute(/*int size, int max_x, int max_y*/){
   int i,j;
 
-  iSize = size;
   daaDistanceTable=(double **)malloc(sizeof(double*)*iSize);
 
   for(i=0;i<iSize;i++)
@@ -114,8 +113,11 @@ void zReadRoute(/*int size, int max_x, int max_y*/){
   for(i=0;i<iSize;i++){
     // generate random numbers from 0 to x_max and y_max
 
-    scanf("%d %d",&(iaaXCoors[i]), &(iaaYCoors[i]));
-    //printf("%d %d\n", iaaXCoors[i], iaaYCoors[i]);
+    iaaXCoors[i] = random_at_most(max_x);
+    iaaYCoors[i] = random_at_most(max_y);
+
+   // printf("\nx: %d\ny: %d", iaaXCoors[i], iaaYCoors[i]);
+
   }
   
   for(i=0; i<iSize; i++)	  
@@ -143,15 +145,32 @@ main(int argc, char *argv[]) {
 
   if (argc == 4){
     // convert the argv to integer with stdlib
-    size = atoi(argv[1]);
+    iSize = atoi(argv[1]);
     max_x = atoi(argv[2]);
     max_y = atoi(argv[3]);
-    printf("\n---3 arguments given---\n the size is: %d\n the max y value is: %d\n the max x value is: %d\n", size, max_x, max_y);
 
-    printf("\n---random number x---\n%ld", random_at_most(max_x));
-    printf("\n---random number y---\n%ld", random_at_most(max_y));
-
+    /* testing random
+    int var_i, var_j;
+    printf("\n---random numbers x---\n");
+    for (var_i = 0; var_i < iSize; var_i++){
+      printf("\n%ld", random_at_most(max_x));
+    }
+    printf("\n---random numbers y---\n");
+    for (var_j = 0; var_j < iSize; var_j++){
+      printf("\n%ld", random_at_most(max_y));
+    }
+*/
   }
+  else{
+    // define a default size, x and y
+    iSize = 14;
+    max_x = 3000;
+    max_y = 3000;
+  }
+
+  printf("\nthe size is: %d\n the max y value is: %d\n the max x value is: %d\n", iSize, max_x, max_y);
+
+
   int i;
   cRouteDefinition *oOriginalRoute;
   cRouteDefinition res, *r=&res;
