@@ -8,13 +8,6 @@
 
 #include <math.h>
 #include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-
-// size is the number of the cities that the traveller has to cross, max x and max y are the coordinates max of the map
-int size;
-int max_x;
-int max_y;
 
 typedef unsigned char byte;
 
@@ -74,37 +67,13 @@ double zEuclidDist(int from, int to){
 
   return(sqrt(dx*dx+dy*dy));
 }
-
-
-// generate random number given a range from 0 to max
-// Assumes 0 <= max <= RAND_MAX
-// Returns in the half-open interval [0, max]
-long random_at_most(long max) {
-  unsigned long
-  // max <= RAND_MAX < ULONG_MAX, so this is okay.
-          num_bins = (unsigned long) max + 1,
-          num_rand = (unsigned long) RAND_MAX + 1,
-          bin_size = num_rand / num_bins,
-          defect   = num_rand % num_bins;
-
-  long x;
-  do {
-    x = random();
-  }
-    // This is carefully written not to overflow
-  while (num_rand - defect <= (unsigned long)x);
-
-  // Truncated division is intentional
-  return x/bin_size;
-}
-
-
-void zReadRoute(/*int size, int max_x, int max_y*/){
+    
+void zReadRoute(){
   int i,j;
+    
+  scanf("%d",&iSize);
 
-  iSize = size;
   daaDistanceTable=(double **)malloc(sizeof(double*)*iSize);
-
   for(i=0;i<iSize;i++)
     daaDistanceTable[i]=(double *)malloc(sizeof(double)*iSize);
   
@@ -112,8 +81,6 @@ void zReadRoute(/*int size, int max_x, int max_y*/){
   iaaYCoors=(int *)malloc(sizeof(int)*iSize);
   
   for(i=0;i<iSize;i++){
-    // generate random numbers from 0 to x_max and y_max
-
     scanf("%d %d",&(iaaXCoors[i]), &(iaaYCoors[i]));
     //printf("%d %d\n", iaaXCoors[i], iaaYCoors[i]);
   }
@@ -139,34 +106,21 @@ double second()
   return t;
 }
 
-main(int argc, char *argv[]) {
-
-  if (argc == 4){
-    // convert the argv to integer with stdlib
-    size = atoi(argv[1]);
-    max_x = atoi(argv[2]);
-    max_y = atoi(argv[3]);
-    printf("\n---3 arguments given---\n the size is: %d\n the max y value is: %d\n the max x value is: %d\n", size, max_x, max_y);
-
-    printf("\n---random number x---\n%ld", random_at_most(max_x));
-    printf("\n---random number y---\n%ld", random_at_most(max_y));
-
-  }
+main() {
   int i;
   cRouteDefinition *oOriginalRoute;
   cRouteDefinition res, *r=&res;
   double start, stop;
 
   zReadRoute();
-
+  
   oOriginalRoute=(cRouteDefinition*)malloc(sizeof(cRouteDefinition));
-
   for(i=0; i<iSize; i++)
     oOriginalRoute->baPath[i]=(byte)i;
-
+  
   oOriginalRoute->dLength=0.0;
   oOriginalRoute->iSet=1;
-  
+
   start=second();
   zRoute(oOriginalRoute,&r);  //Find the best route:)
   stop=second();
