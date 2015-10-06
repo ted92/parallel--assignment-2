@@ -1,12 +1,8 @@
 \begin{thebibliography}{1}
 
-\bibitem{citation4}
-Application design patterns: Master/slave.
-\newblock \url{http://www.ni.com/white-paper/3022/en/}, 2006.
-
-\bibitem{citation3}
-Barry Wilkinson and Michael Allen.
-\newblock Parallel programming: Techniques and applications using networked
-  workstations and parallel computers.
+\bibitem{citation1}
+Wikipedia - tsp.
+\newblock \url{https://en.wikipedia.org/wiki/Travelling_salesman_problem},
+  2015.
 
 \end{thebibliography}

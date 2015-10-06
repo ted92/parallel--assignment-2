@@ -190,17 +190,6 @@ main(int argc, char *argv[]) {
         max_x = atoi(argv[2]);
         max_y = atoi(argv[3]);
 
-        /* testing random
-        int var_i, var_j;
-        printf("\n---random numbers x---\n");
-        for (var_i = 0; var_i < iSize; var_i++){
-          printf("\n%ld", random_at_most(max_x));
-        }
-        printf("\n---random numbers y---\n");
-        for (var_j = 0; var_j < iSize; var_j++){
-          printf("\n%ld", random_at_most(max_y));
-        }
-    */
     }
     else{
         // define a default size, x and y
