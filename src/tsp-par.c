@@ -26,6 +26,7 @@ typedef struct {
     byte baPath[128];
 } cRouteDefinition;
 
+
 // size of the path
 int iSize;
 
@@ -37,9 +38,40 @@ double **daaDistanceTable;
 double dMinRouteLen=10E18;
 double dGlobalBest=10E18;
 
+
+void for_cycle_zRoute(cRouteDefinition * oRoute, byte c, cRouteDefinition ** reply){
+    int i;
+    double nl;
+    cRouteDefinition Perm, Res, *oResult=&Res, *oPermutation=&Perm;
+    cRouteDefinition *oBest=*reply;
+
+    #pragma omp for
+    for(i=oRoute->iSet;i<iSize;i++){
+        // nl is new_length
+        nl=oRoute->dLength+daaDistanceTable[oRoute->baPath[oRoute->iSet-1]][oRoute->baPath[i]];
+        if(nl<dGlobalBest) {
+            // copy the values of the number of bytes from the location pointed to by source directly to the memory block pointed to by destination
+            memcpy(oPermutation->baPath, oRoute->baPath, iSize * sizeof(byte));
+            oPermutation->baPath[oRoute->iSet] = oPermutation->baPath[i];
+            oPermutation->baPath[i] = c;
+            oPermutation->dLength = nl;
+            oPermutation->iSet = oRoute->iSet + 1;
+            zRoute(oPermutation, &oResult);
+            if (oResult->dLength < oBest->dLength) { //Best route so far?
+                oBest = oResult;
+                if (oBest->dLength < dGlobalBest) {
+                    dGlobalBest = oBest->dLength;
+                }
+            }
+        }
+    }
+    return;
+
+}
+
+
 // counter for parallelize
 int count = 0;
-
 void zRoute(cRouteDefinition * oRoute, cRouteDefinition ** reply){
     byte c;
     int i;
@@ -62,26 +94,8 @@ void zRoute(cRouteDefinition * oRoute, cRouteDefinition ** reply){
         count++;
         #pragma omp parallel num_threads(4)
         {
-        #pragma omp for
-        for(i=oRoute->iSet;i<iSize;i++){
-                // nl is new_length
-                nl=oRoute->dLength+daaDistanceTable[oRoute->baPath[oRoute->iSet-1]][oRoute->baPath[i]];
-                if(nl<dGlobalBest) {
-                    // copy the values of the number of bytes from the location pointed to by source directly to the memory block pointed to by destination
-                    memcpy(oPermutation->baPath, oRoute->baPath, iSize * sizeof(byte));
-                    oPermutation->baPath[oRoute->iSet] = oPermutation->baPath[i];
-                    oPermutation->baPath[i] = c;
-                    oPermutation->dLength = nl;
-                    oPermutation->iSet = oRoute->iSet + 1;
-                    zRoute(oPermutation, &oResult);
-                    if (oResult->dLength < oBest->dLength) { //Best route so far?
-                        oBest = oResult;
-                        if (oBest->dLength < dGlobalBest) {
-                            dGlobalBest = oBest->dLength;
-                        }
-                    }
-                }
-        }
+        //#pragma omp for
+            for_cycle_zRoute(oRoute, c, reply);
         }
     }
 
@@ -183,7 +197,6 @@ double second()
 }
 
 main(int argc, char *argv[]) {
-
     if (argc == 4){
         // convert the argv to integer with stdlib
         iSize = atoi(argv[1]);

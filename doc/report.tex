@@ -105,7 +105,8 @@ To parallelize a sequential code is necessary to analyse which function involves
 the function to parallelize is obviously \textit{zRoute}.
 \newline
 The function has a recursive structure for each possible successor of the city chosen as initial. For instance, if the function would have a $iSize = 5$ (number of cities) then the execution tree would look like the one in Fig \ref{fig:tree}. 
-In the first 'level' of the tree the first city execute recursively the $zRoute$ function 
+In the first 'level' of the tree the first city executes recursively the $zRoute$ function for the number of the cities left to visit, and so for the other levels.
+Having an image of the execution tree helps to get the parallelization easier.
 \begin{figure}[h!]
   \centering
     \includegraphics[width=0.5\textwidth]{tree}
@@ -114,11 +115,15 @@ In the first 'level' of the tree the first city execute recursively the $zRoute$
 \end{figure}
 
 \section{Implementation}
+%TODO: talk about random function, and parameters in input
+%TODO: draw the parallelized tree
+%TODO: how achieve the parallelization with openMP
 \subsection{Environment}
 \subsection{}
 
 \section{Result and Benchmarking}
-
+%TODO: scale with number of cities
+%TODO: compare with the sequential one
 
 
 \section{Discussion}
