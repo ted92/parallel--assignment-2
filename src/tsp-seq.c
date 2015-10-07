@@ -12,8 +12,8 @@
 #include <string.h>
 
 // max x and max y are the coordinates max of the map
-int max_x;
-int max_y;
+int max_x = 3000;
+int max_y = 3000;
 
 typedef unsigned char byte;
 
@@ -143,32 +143,17 @@ double second()
 
 main(int argc, char *argv[]) {
 
-  if (argc == 4){
+  if (argc == 2){
     // convert the argv to integer with stdlib
     iSize = atoi(argv[1]);
-    max_x = atoi(argv[2]);
-    max_y = atoi(argv[3]);
 
-    /* testing random
-    int var_i, var_j;
-    printf("\n---random numbers x---\n");
-    for (var_i = 0; var_i < iSize; var_i++){
-      printf("\n%ld", random_at_most(max_x));
-    }
-    printf("\n---random numbers y---\n");
-    for (var_j = 0; var_j < iSize; var_j++){
-      printf("\n%ld", random_at_most(max_y));
-    }
-*/
   }
   else{
     // define a default size, x and y
     iSize = 14;
-    max_x = 3000;
-    max_y = 3000;
   }
 
-  printf("\nthe size is: %d\n the max y value is: %d\n the max x value is: %d\n", iSize, max_x, max_y);
+  printf("\nthe number of cities is: %d\n the map is: %d x %d\n", iSize, max_x, max_y);
 
 
   int i;

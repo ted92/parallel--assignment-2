@@ -15,8 +15,9 @@
 
 
 // max x and max y are the coordinates max of the map
-int max_x;
-int max_y;
+int max_x = 3000;
+int max_y = 3000;
+int n_cores;
 
 typedef unsigned char byte;
 
@@ -92,13 +93,13 @@ void zRoute(cRouteDefinition * oRoute, cRouteDefinition ** reply){
 
     if (count == 0) {
         count++;
-        #pragma omp parallel num_threads(4)
+        #pragma omp parallel num_threads(n_cores)
         {
-        //#pragma omp for
+        // call the parallelised function
             for_cycle_zRoute(oRoute, c, reply);
         }
     }
-
+    // sequential function
     else{
         for(i=oRoute->iSet;i<iSize;i++){
             // nl is new_length
@@ -197,21 +198,18 @@ double second()
 }
 
 main(int argc, char *argv[]) {
-    if (argc == 4){
+    if (argc == 3){
         // convert the argv to integer with stdlib
         iSize = atoi(argv[1]);
-        max_x = atoi(argv[2]);
-        max_y = atoi(argv[3]);
-
+        n_cores = atoi(argv[2]);
     }
     else{
         // define a default size, x and y
         iSize = 14;
-        max_x = 3000;
-        max_y = 3000;
+        n_cores = 4;
     }
 
-    printf("\nthe size is: %d\n the max y value is: %d\n the max x value is: %d\n", iSize, max_x, max_y);
+    printf("\nthe number of cities is: %d\n the map is: %d x %d\n", iSize, max_x, max_y);
 
 
     int i;
@@ -232,7 +230,7 @@ main(int argc, char *argv[]) {
     start=second();
     zRoute(oOriginalRoute,&r);  //Find the best route:)
     stop=second();
-    printf("Route length is %lf found in %lf seconds\n",dGlobalBest,stop-start);
+    printf("%d cores used.\nRoute length is %lf found in %lf seconds\n", n_cores, dGlobalBest,stop-start);
 }
 
 
