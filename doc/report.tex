@@ -63,13 +63,14 @@ Shared Memory}
 
 \section{Introduction}
 The goal of this assignment is to parallelize a piece of code using shared memory techniques preferably using \textbf{OpenMP}.
+\newline
+The piece of code to parallelize could be the given one, that is a Markovian chess engine, or a chosen piece of code which has to be approved by the professor.
 \subsection{Requirements}
 \begin{itemize} 
 \item Choose a piece of software to parallelize
 \item Parallelize it with shared-memory techniques
-\item Evaluate speedup
+\item Evaluate speed up
 \end{itemize}
-
 
 \section{Technical Background}
 
@@ -115,22 +116,101 @@ Having an image of the execution tree helps to get the parallelization easier.
 \end{figure}
 
 \section{Implementation}
-%TODO: talk about random function, and parameters in input
-%TODO: draw the parallelized tree
-%TODO: how achieve the parallelization with openMP
 \subsection{Environment}
-\subsection{}
+The code has been developed using JetBrains CLion 1.1 on Windows 10 and due to a more easy way to compile and test the MPI programs with a Linux based console, the compilation and the execution of the code has been made on an Ubuntu Virtual Machine with 4 core assigned, using VirtualBox 4.2 and Ubuntu version 14.04.3
+\newline
+To synchronize the cluster and the local machine and to keep trace of all the changes in the code, a git repository was created and the git command on linux were used to commit and to push/pull data from repositories.
+\newline
+The benchmarking and the test with more than 4 cores has been done in the UiT uvrocks cluster. The connection with the cluster was established by using ssh on a linux machine:
+\begin{lstlisting}
+ssh -X -A ete011@uvrocks.cs.uit.no
+\end{lstlisting}
+To simplify the execution of the code, a proper Makefile was implemented.
 
+\subsection{Fixing the Sequential Version}
+Before starting the parallelization some changes to the sequential version were implemented. The way to verify if the solution found is reliable is to check the $length$ of the path to visit all the cities. The length of the path changes if either the number of cities or the size of the map is changed, but it's not dependent from where the cities are located. Considering that, a function which generates random numbers from \textit{0 to max\_size} is created, so every time, given a number of cities and a max\_size defined, is possible to generate random coordinates for the cities which won't influence the correct $crc$ anyway.
+The sequential version, \textit{tsp-seq.c}, takes as input the number of cities and it has a fixed map size.
+
+\subsection{Approaching the Problem}
+Due to the tricky recursive function the first goal of the implemented parallelization was: "get the speed up keeping the code simple". 
+The Fig \ref{fig:tree-par} shows the logic used for the parallelization. The parts of the tree enhanced in red are the component which will run in parallel; in that way the speed up is strongly dependent from the relation between the $number\_of\_cores$ and the $number\_of\_cities$. Using this kind of approach the parallelization is made in the first $for$ cycle, and each core will execute the recursive function, solving all the sub-branches problems related to it.
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=0.5\textwidth]{tree-par}
+    \caption{Execution of the parallel version of the zRoute function, with 5 cities using 4 parallel cores}
+    \label{fig:tree-par}
+\end{figure}
+
+\subsection{Parallelization}
+For the parallelization \textbf{OpenMP} API were used. They provide to standardize directive-based multi-language high-level parallelism that is performant, productive and portable\cite{citation4}. Since the $zRoute$ function is recursive is necessary to define two types of $zRoute$ functions, a \textbf{sequential} one and a \textbf{parallel} one. If the code is in the first level of the tree, then it will call for each sub-branches the recursive parallel function, otherwise it will call the sequential one.
+\newline
+The biggest problem to solve was related to shared memory and how the variables were used while parallelizing the code. OpenMp indeed takes care about the balancing of the work but is necessary to have well defined which variable needs to be global and which ones local.
+\newline
+To parallelize the function the following logic was used:
+\begin{lstlisting}
+count = 0;
+void zRoute(...){
+    if (count == 0) {
+    	count++;
+    	#pragma omp parallel num_threads(#)
+    	{
+    	#pragma omp for
+    	--core of zRoute function--
+    	}
+    }
+    else{
+    	--core of zRoute function--
+    }
+    return;
+}
+\end{lstlisting}
+
+To keep the variables local, a strong analysis on them has been done. All the variables which change their value during the execution (called $var\_c$ in the listing below) of zRoute must have been declared locally. To achieve that, a function called \textit{for\_cycle\_zRoute} has been created and it is called only when $count = 0$, that is  when the code needs to be parallelized. Therefore the function it receives as input all these variables which need to be locally declared and it executes the core of the zRute function.
+
+\begin{lstlisting}
+void zRoute(...){
+    if (count == 0) {
+    	#pragma omp parallel num_threads(#)
+    	{
+    		for_cycle_zRoute(var_c);
+    	}
+    }
+    else{
+    	--core of zRoute function--
+    }
+    return;
+}
+\end{lstlisting}
+
+The logic for the \textit{for\_cycle\_zRoute} function is:
+
+\begin{lstlisting}
+void for_cycle_zRoute(var_c){
+    --definition of local variables--
+    #pragma omp for
+    --core of zRoute function--
+    return;
+}
+\end{lstlisting}
 \section{Result and Benchmarking}
-%TODO: scale with number of cities
+For the benchmarking the parallel
+%TODO: benchmarking with speed up and with efficency
+%TODO: scale with number of cities: compare sequential one with fixed parallel threads one.
+%TODO: scale with number of threads: compare sequential (eg 16 cities) with parallel using 1--16, 20,30,40 threads
 %TODO: compare with the sequential one
-
+%TODO: talk about of not having used the omp profiling
 
 \section{Discussion}
 
-
+%TODO: Talk about that is possible to parallelize more when n_cores >> n_cities
+%TODO: A possible optimization is to check if the n_cores >> n_cities if yes then divide the work one level down or create a pull of works for each recursive call and the threads are going to take the work from there.
+%TODO: With an high number of cities the speedup is not gonna be so much better than the sequential one, because executing the zRoute function is a exponential problem
 
 \section{Conclusion}
+
+%TODO: which speedup achieved
+%TODO: Considering the few days of work I can consider satisfied for the work done
 
 \bibliographystyle{plain}
 \bibliography{report}

@@ -1,5 +1,9 @@
 \begin{thebibliography}{1}
 
+\bibitem{citation4}
+Openmp.
+\newblock \url{http://openmp.org/wp/about-openmp/}.
+
 \bibitem{citation1}
 Wikipedia - tsp.
 \newblock \url{https://en.wikipedia.org/wiki/Travelling_salesman_problem},

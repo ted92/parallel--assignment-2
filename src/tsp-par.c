@@ -95,7 +95,7 @@ void zRoute(cRouteDefinition * oRoute, cRouteDefinition ** reply){
         count++;
         #pragma omp parallel num_threads(n_cores)
         {
-        // call the parallelised function
+        // call the parallelized function
             for_cycle_zRoute(oRoute, c, reply);
         }
     }
