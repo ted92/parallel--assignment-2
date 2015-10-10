@@ -8,5 +8,8 @@
 \BOOKMARK [2][-]{subsection.4.3}{Approaching the Problem}{section.4}% 8
 \BOOKMARK [2][-]{subsection.4.4}{Parallelization}{section.4}% 9
 \BOOKMARK [1][-]{section.5}{Result and Benchmarking}{}% 10
-\BOOKMARK [1][-]{section.6}{Discussion}{}% 11
-\BOOKMARK [1][-]{section.7}{Conclusion}{}% 12
+\BOOKMARK [2][-]{subsection.5.1}{Speedup}{section.5}% 11
+\BOOKMARK [2][-]{subsection.5.2}{Efficiency}{section.5}% 12
+\BOOKMARK [2][-]{subsection.5.3}{Scaling}{section.5}% 13
+\BOOKMARK [1][-]{section.6}{Discussion}{}% 14
+\BOOKMARK [1][-]{section.7}{Conclusion}{}% 15

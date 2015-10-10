@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.11.25)  8 OCT 2015 22:27
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.11.25)  10 OCT 2015 20:56
 entering extended mode
 **report.tex
 
@@ -611,7 +611,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5.5> on input line 70.
 
-<tree.jpg, id=53, 1120.185pt x 364.36125pt>
+<tree.jpg, id=65, 1120.185pt x 364.36125pt>
 File: tree.jpg Graphic file (type jpg)
  <use tree.jpg>
 Package pdftex.def Info: tree.jpg used on input line 113.
@@ -621,35 +621,49 @@ Overfull \hbox (6.0pt too wide) in paragraph at lines 113--114
  [][] 
  []
 
+<node-scaling-seq.pdf, id=67, 845.19763pt x 597.19112pt>
+File: node-scaling-seq.pdf Graphic file (type pdf)
+
+<use node-scaling-seq.pdf>
+Package pdftex.def Info: node-scaling-seq.pdf used on input line 122.
+(pdftex.def)             Requested size: 258.0pt x 121.49669pt.
+
+Overfull \hbox (6.0pt too wide) in paragraph at lines 122--123
+ [][] 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
 [1{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}
 
 
  <C:/Users/Enrico/Dropbox/Università Enrico Tedeschi/Master UiT/1 - Year/3201 
 - Parallel Programming/assignment2/doc/tree.jpg>]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 126.
+(Font)              <9> on input line 134.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 126.
+(Font)              <6> on input line 134.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 126.
- <tree-par.jpg, id=76, 1163.0953pt x 259.7203pt>
+(Font)              <5> on input line 134.
+ <tree-par.jpg, id=91, 1163.0953pt x 259.7203pt>
 File: tree-par.jpg Graphic file (type jpg)
 
 <use tree-par.jpg>
-Package pdftex.def Info: tree-par.jpg used on input line 140.
+Package pdftex.def Info: tree-par.jpg used on input line 148.
 (pdftex.def)             Requested size: 258.0pt x 57.61023pt.
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 140--141
+Overfull \hbox (6.0pt too wide) in paragraph at lines 148--149
  [][] 
  []
 
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 153.
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 161.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\omsptm.fd"
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <9> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 153.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 161.
 
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -658,7 +672,92 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [2 <C:/Users/Enrico/Dropbox/Università Enrico Tedeschi/Master UiT/1 - Year/320
-1 - Parallel Programming/assignment2/doc/tree-par.jpg>]
+1 - Parallel Programming/assignment2/doc/node-scaling-seq.pdf> <C:/Users/Enrico
+/Dropbox/Università Enrico Tedeschi/Master UiT/1 - Year/3201 - Parallel Progra
+mming/assignment2/doc/tree-par.jpg>]
+Underfull \hbox (badness 3049) in paragraph at lines 205--207
+[]\OT1/ptm/m/n/11 The se-quen-tial and the par-al-lel pro-grams were
+ []
+
+
+Underfull \hbox (badness 3803) in paragraph at lines 205--207
+\OT1/ptm/m/n/11 tested on uvrocks clus-ter. Dur-ing the eval-u-a-tion,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 205--207
+
+ []
+
+<speedup.pdf, id=138, 845.19763pt x 597.19112pt>
+File: speedup.pdf Graphic file (type pdf)
+ <use speedup.pdf>
+Package pdftex.def Info: speedup.pdf used on input line 214.
+(pdftex.def)             Requested size: 258.0pt x 121.49669pt.
+
+Overfull \hbox (6.0pt too wide) in paragraph at lines 214--215
+ [][] 
+ []
+
+<efficiency.pdf, id=141, 845.19763pt x 597.19112pt>
+File: efficiency.pdf Graphic file (type pdf)
+ <use efficiency.pdf>
+Package pdftex.def Info: efficiency.pdf used on input line 226.
+(pdftex.def)             Requested size: 258.0pt x 121.49669pt.
+
+Overfull \hbox (6.0pt too wide) in paragraph at lines 226--227
+ [][] 
+ []
+
+<time-comparsion.pdf, id=142, 845.19763pt x 597.19112pt>
+File: time-comparsion.pdf Graphic file (type pdf)
+
+<use time-comparsion.pdf>
+Package pdftex.def Info: time-comparsion.pdf used on input line 237.
+(pdftex.def)             Requested size: 258.0pt x 182.29338pt.
+
+Overfull \hbox (6.0pt too wide) in paragraph at lines 237--238
+ [][] 
+ []
+
+[3 <C:/Users/Enrico/Dropbox/Università Enrico Tedeschi/Master UiT/1 - Year/320
+1 - Parallel Programming/assignment2/doc/speedup.pdf> <C:/Users/Enrico/Dropbox/
+Università Enrico Tedeschi/Master UiT/1 - Year/3201 - Parallel Programming/ass
+ignment2/doc/efficiency.pdf
+
+pdfTeX warning: pdflatex.exe (file C:/Users/Enrico/Dropbox/Università Enrico T
+edeschi/Master UiT/1 - Year/3201 - Parallel Programming/assignment2/doc/efficie
+ncy.pdf): PDF inclusion: multiple pdfs with page group included in a single pag
+e
+> <C:/Users/Enrico/Dropbox/Università Enrico Tedeschi/Master UiT/1 - Year/3201
+ - Parallel Programming/assignment2/doc/time-comparsion.pdf
+
+pdfTeX warning: pdflatex.exe (file C:/Users/Enrico/Dropbox/Università Enrico T
+edeschi/Master UiT/1 - Year/3201 - Parallel Programming/assignment2/doc/time-co
+mparsion.pdf): PDF inclusion: multiple pdfs with page group included in a singl
+e page
+>] <speedup-comparsion.pdf, id=251, 845.19763pt x 597.19112pt>
+File: speedup-comparsion.pdf Graphic file (type pdf)
+
+<use speedup-comparsion.pdf>
+Package pdftex.def Info: speedup-comparsion.pdf used on input line 249.
+(pdftex.def)             Requested size: 258.0pt x 182.29338pt.
+
+Overfull \hbox (6.0pt too wide) in paragraph at lines 249--250
+ [][] 
+ []
+
+<optimized-tree.jpg, id=253, 626.34pt x 255.95625pt>
+File: optimized-tree.jpg Graphic file (type jpg)
+ <use optimized-tree.jpg>
+Package pdftex.def Info: optimized-tree.jpg used on input line 261.
+(pdftex.def)             Requested size: 258.0pt x 105.43483pt.
+
+Overfull \hbox (6.0pt too wide) in paragraph at lines 261--262
+ [][] 
+ []
+
+
 ("C:\Users\Enrico\Dropbox\Università Enrico Tedeschi\Master UiT\1 - Year\3201 
 - Parallel Programming\assignment2\doc\report.bbl"
 Underfull \hbox (badness 2875) in paragraph at lines 8--11
@@ -678,39 +777,42 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 219.
-[3
-
-]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 219.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 275.
+[4 <C:/Users/Enrico/Dropbox/Università Enrico Tedeschi/Master UiT/1 - Year/320
+1 - Parallel Programming/assignment2/doc/speedup-comparsion.pdf> <C:/Users/Enri
+co/Dropbox/Università Enrico Tedeschi/Master UiT/1 - Year/3201 - Parallel Prog
+ramming/assignment2/doc/optimized-tree.jpg>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 275.
 
 ("C:\Users\Enrico\Dropbox\Università Enrico Tedeschi\Master UiT\1 - Year\3201 
 - Parallel Programming\assignment2\doc\report.aux")
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 219.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 219.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 275.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 275.
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: C1A2C5844A3776F8081ED7FC7EA7C22A;692.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 219.
+(rerunfilecheck)             Checksum: 168A7021850F96196878D8E99CC8A205;869.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 275.
  ) 
 Here is how much of TeX's memory you used:
- 8316 strings out of 493705
- 123615 string characters out of 3142148
- 277125 words of memory out of 3000000
- 11497 multiletter control sequences out of 15000+200000
+ 8365 strings out of 493705
+ 124509 string characters out of 3142148
+ 252547 words of memory out of 3000000
+ 11530 multiletter control sequences out of 15000+200000
  36718 words of font info for 72 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 29i,12n,43p,667b,1767s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 29i,11n,43p,1566b,1469s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Progra
 m Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program 
-Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Fil
-es (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files 
-(x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy9.pfb><C:/Program Files (x8
-6)/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files (x86)/MiKTeX 2
-.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/ty
-pe1/urw/times/utmri8a.pfb>
-Output written on report.pdf (3 pages, 377493 bytes).
+Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Fil
+es (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files 
+(x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files (x
+86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files (x86)
+/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy9.pfb><C:/Program Files (x86)/Mi
+KTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fo
+nts/type1/urw/times/utmr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/u
+rw/times/utmri8a.pfb>
+Output written on report.pdf (4 pages, 1546074 bytes).
 PDF statistics:
- 171 PDF objects out of 1000 (max. 8388607)
- 67 named destinations out of 1000 (max. 500000)
- 107 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 349 PDF objects out of 1000 (max. 8388607)
+ 77 named destinations out of 1000 (max. 500000)
+ 161 words of extra memory for PDF output out of 10000 (max. 10000000)
 
