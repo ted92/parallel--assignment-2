@@ -78,8 +78,6 @@ void zRoute_parallel(cRouteDefinition * oRoute, byte c, cRouteDefinition ** repl
     cRouteDefinition Perm, Res, *oResult=&Res, *oPermutation=&Perm;
     cRouteDefinition *oBest=*reply;
 
-    // decrease the count for the parallelization
-    count = count - (iSize - oRoute->iSet);
     #pragma omp for
     for(i=oRoute->iSet;i<iSize;i++){
         // nl is new_length
@@ -131,6 +129,8 @@ void zRoute(cRouteDefinition * oRoute, cRouteDefinition ** reply, int count){
         #pragma omp parallel num_threads(n_cores)
         {
             // call the parallelized function
+            // decrease the count for the parallelization
+            count = count - (iSize - oRoute->iSet);
             zRoute_parallel(oRoute, c, reply, count);
         }
 

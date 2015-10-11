@@ -62,8 +62,8 @@
       <file leaf-file-name="tsp-par.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tsp-par.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.11225806">
-              <caret line="56" column="56" selection-start-line="56" selection-start-column="56" selection-end-line="56" selection-end-column="56" />
+            <state vertical-scroll-proportion="0.5045161">
+              <caret line="133" column="53" selection-start-line="133" selection-start-column="53" selection-end-line="133" selection-end-column="53" />
               <folding />
             </state>
           </provider>
@@ -267,8 +267,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tsp-par.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.11225806">
-          <caret line="56" column="56" selection-start-line="56" selection-start-column="56" selection-end-line="56" selection-end-column="56" />
+        <state vertical-scroll-proportion="0.5045161">
+          <caret line="133" column="53" selection-start-line="133" selection-start-column="53" selection-end-line="133" selection-end-column="53" />
           <folding />
         </state>
       </provider>
