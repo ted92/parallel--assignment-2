@@ -137,7 +137,7 @@ double zEuclidDist(int from, int to){
 // Returns in the half-open interval [0, max]
 int random_at_most(int max) {
     unsigned int
-    // max <= RAND_MAX < ULONG_MAX, so this is okay.
+    // max <= RAND_MAX < ULONG_MAX
             num_bins = (unsigned int) max + 1,
             num_rand = (unsigned int) RAND_MAX + 1,
             bin_size = num_rand / num_bins,
@@ -171,8 +171,6 @@ void zReadRoute(/*int size, int max_x, int max_y*/){
 
         iaaXCoors[i] = random_at_most(max_x);
         iaaYCoors[i] = random_at_most(max_y);
-
-        // printf("\nx: %d\ny: %d", iaaXCoors[i], iaaYCoors[i]);
 
     }
 

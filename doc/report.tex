@@ -10,6 +10,7 @@
 \usepackage{listings}
 \usepackage{color}
 \usepackage{natbib}
+\usepackage{amsmath}
 
 % Your names in the header
 \pagestyle{fancy}
@@ -90,9 +91,9 @@ The given \textbf{Markovian} code was found to be too long and quite hard to und
 \newline
 The code chosen to be parallelized is a sequential version of the \textbf{TSP} (Traveller Salesman Problem). It asks the following question: \textit{Given a list of cities and the distances between each pair of cities, what is the shortest possible route that visits each city exactly once and returns to the origin city?} \cite{citation1}
 \newline
-The sequential code was refined by adding a random function which generate distances between cities and also the possibility of run the programme with a size passed as a parameter was implemented.
+The sequential code was refined by adding a random function which generates distances between cities and also the possibility of running the programme with a size passed as a parameter was implemented.
 \newline
-To parallelize a sequential code is necessary to analyse which function involves the biggest amount of time. The c given program \textit{tsp-seq.c} has been tested with \textit{profile} and the following table is the result of this test:
+To parallelize a sequential code is necessary to analyse which function involves the biggest amount of time. The given program, \textit{tsp-seq.c}, has been tested with \textit{profile} and the following table is the result of this test:
 \begin{lstlisting}
   %   cumulative   self               
  time   seconds    calls   name    
@@ -103,7 +104,7 @@ To parallelize a sequential code is necessary to analyse which function involves
   0.00   0.00        1     zReadRoute
 \end{lstlisting}
 
-the function to parallelize is obviously \textit{zRoute}.
+Looking at this table it turns out that the function to parallelize is obviously \textit{zRoute}.
 \newline
 The function has a recursive structure for each possible successor of the city chosen as initial. For instance, if the function would have a $iSize = 5$ (number of cities) then the execution tree would look like the one in Fig \ref{fig:tree}. 
 In the first 'level' of the tree the first city executes recursively the $zRoute$ function for the number of the cities left to visit, and so for the other levels.
@@ -136,7 +137,7 @@ ssh -X -A ete011@uvrocks.cs.uit.no
 To simplify the execution of the code, a proper Makefile was implemented.
 
 \subsection{Fixing the Sequential Version}
-Before starting the parallelization some changes to the sequential version were implemented. The way to verify if the solution found is reliable is to check the $length$ of the path to visit all the cities. The length of the path changes if either the number of cities or the size of the map is changed, but it's not dependent from where the cities are located. Considering that, a function which generates random numbers from \textit{0 to max\_size} is created, so every time, given a number of cities and a max\_size defined, is possible to generate random coordinates for the cities which won't influence the correct $crc$ anyway.
+Before starting the parallelization some changes to the sequential version were implemented. The way to verify if the solution found is reliable is to check the $length$ of the path to visit all the cities. The length of the path changes if either the number of the cities, the size of the map or where the cities are located is changed. Considering that, the function \textit{random\_at\_most(max\_size)} is implemented. It generates the same random numbers given a certain input from \textit{0 to max\_size} in this way is possible to test the \textit{crc} in a correct way without inserting the coordinates every time or without having duplicate or long and useless code.
 The sequential version, \textit{tsp-seq.c}, takes as input the number of cities and it has a fixed map size.
 
 \subsection{Approaching the Problem}
@@ -205,9 +206,9 @@ void for_cycle_zRoute(var_c){
 The sequential and the parallel programs were tested on uvrocks cluster. During the evaluation, the \textbf{speedup}, the \textbf{efficiency} and the scaling with the number of cities and cores were taken into consideration.
 \newline
 
-
 \subsection{Speedup}
-Speedup is $S(p) = t_s/t_p$ where $t_s$ is the sequential time and $t_p$ is the parallel time using p processors. As the Fig \ref{fig:speedup} shows, the speedup achieved is not strongly dependent from the number of cores used and doesn't matter how many cores will be used but the speedup will never be higher than 4x times the sequential one.
+\[ S(p) = \dfrac{t_s}{t_p}  \]
+where $t_s$ is the sequential time and $t_p$ is the parallel time using p processors. As the Fig \ref{fig:speedup} shows, the speedup achieved is not strongly dependent from the number of cores used and doesn't matter how many cores will be used but the speedup will never be higher than 4x times the sequential one.
 
 \begin{figure}[h!]
   \centering
@@ -219,7 +220,8 @@ Speedup is $S(p) = t_s/t_p$ where $t_s$ is the sequential time and $t_p$ is the 
 This is due to the way of parallelizing the problem, it only splits the work at the first iteration, so even if there will be a lot of cores they will never be used anyway and in addition they will take extra time in the computation because of the message exchange for the communication between threads. This is confirmed in the evaluation of the efficiency, Fig \ref{fig:efficiency}.
  
 \subsection{Efficiency}
-The efficiency was calculated with $ E = t_s / (t_p * p)$, where p is the number of processes used. So the question which efficiency answers is: \textit{"How good is the parallelization using p number of cores?"}. The Fig \ref{fig:efficiency} represents the efficiency considering the executions from 1 to 40 cores, with number of cities equal to 16.
+\[ S(p) = \dfrac{t_s}{t_p * p}  \]
+where p is the number of processes used. So the question which efficiency answers is: \textit{"How good is the parallelization using p number of cores?"}. The Fig \ref{fig:efficiency} represents the efficiency considering the executions from 1 to 40 cores, with number of cities equal to 16.
 
 \begin{figure}[h!]
   \centering
