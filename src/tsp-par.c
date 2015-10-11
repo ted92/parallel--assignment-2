@@ -126,11 +126,11 @@ void zRoute(cRouteDefinition * oRoute, cRouteDefinition ** reply, int count){
     int sub_problems = iSize - oRoute->iSet;
 
     if (count > sub_problems){
+        // decrease the count for the parallelization
+        count = count - (sub_problems);
         #pragma omp parallel num_threads(n_cores)
         {
             // call the parallelized function
-            // decrease the count for the parallelization
-            count = count - (iSize - oRoute->iSet);
             zRoute_parallel(oRoute, c, reply, count);
         }
 
