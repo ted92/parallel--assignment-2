@@ -18,6 +18,8 @@
 int max_x = 3000;
 int max_y = 3000;
 int n_cores;
+// counter for parallelize
+int count;
 
 typedef unsigned char byte;
 
@@ -39,13 +41,45 @@ double **daaDistanceTable;
 double dMinRouteLen=10E18;
 double dGlobalBest=10E18;
 
-
-void for_cycle_zRoute(cRouteDefinition * oRoute, byte c, cRouteDefinition ** reply){
+//sequential core of zRoute
+void zRoute_sequential(cRouteDefinition * oRoute, byte c, cRouteDefinition ** reply, int count){
     int i;
     double nl;
     cRouteDefinition Perm, Res, *oResult=&Res, *oPermutation=&Perm;
     cRouteDefinition *oBest=*reply;
 
+    for(i=oRoute->iSet;i<iSize;i++){
+        // nl is new_length
+        nl=oRoute->dLength+daaDistanceTable[oRoute->baPath[oRoute->iSet-1]][oRoute->baPath[i]];
+        if(nl<dGlobalBest) {
+            // copy the values of the number of bytes from the location pointed to by source directly to the memory block pointed to by destination
+            memcpy(oPermutation->baPath, oRoute->baPath, iSize * sizeof(byte));
+            oPermutation->baPath[oRoute->iSet] = oPermutation->baPath[i];
+            oPermutation->baPath[i] = c;
+            oPermutation->dLength = nl;
+            oPermutation->iSet = oRoute->iSet + 1;
+            zRoute(oPermutation, &oResult, count);
+            if (oResult->dLength < oBest->dLength) { //Best route so far?
+                oBest = oResult;
+                if (oBest->dLength < dGlobalBest) {
+                    dGlobalBest = oBest->dLength;
+                }
+            }
+        }
+    }
+    return;
+
+}
+
+//parallel core of zRoute
+void zRoute_parallel(cRouteDefinition * oRoute, byte c, cRouteDefinition ** reply, int count){
+    int i;
+    double nl;
+    cRouteDefinition Perm, Res, *oResult=&Res, *oPermutation=&Perm;
+    cRouteDefinition *oBest=*reply;
+
+    // decrease the count for the parallelization
+    count = count - (iSize - oRoute->iSet);
     #pragma omp for
     for(i=oRoute->iSet;i<iSize;i++){
         // nl is new_length
@@ -57,7 +91,7 @@ void for_cycle_zRoute(cRouteDefinition * oRoute, byte c, cRouteDefinition ** rep
             oPermutation->baPath[i] = c;
             oPermutation->dLength = nl;
             oPermutation->iSet = oRoute->iSet + 1;
-            zRoute(oPermutation, &oResult);
+            zRoute(oPermutation, &oResult, count);
             if (oResult->dLength < oBest->dLength) { //Best route so far?
                 oBest = oResult;
                 if (oBest->dLength < dGlobalBest) {
@@ -71,9 +105,8 @@ void for_cycle_zRoute(cRouteDefinition * oRoute, byte c, cRouteDefinition ** rep
 }
 
 
-// counter for parallelize
-int count = 0;
-void zRoute(cRouteDefinition * oRoute, cRouteDefinition ** reply){
+
+void zRoute(cRouteDefinition * oRoute, cRouteDefinition ** reply, int count){
     byte c;
     int i;
     double nl;
@@ -91,36 +124,21 @@ void zRoute(cRouteDefinition * oRoute, cRouteDefinition ** reply){
 
     c=oRoute->baPath[oRoute->iSet];
 
-    if (count == 0) {
-        count++;
+    // calculate the number of sub-problems to analyze
+    int sub_problems = iSize - oRoute->iSet;
+
+    if (count > sub_problems){
         #pragma omp parallel num_threads(n_cores)
         {
-        // call the parallelized function
-            for_cycle_zRoute(oRoute, c, reply);
+            // call the parallelized function
+            zRoute_parallel(oRoute, c, reply, count);
         }
+
     }
-    // sequential function
     else{
-        for(i=oRoute->iSet;i<iSize;i++){
-            // nl is new_length
-            nl=oRoute->dLength+daaDistanceTable[oRoute->baPath[oRoute->iSet-1]][oRoute->baPath[i]];
-            if(nl<dGlobalBest) {
-                // copy the values of the number of bytes from the location pointed to by source directly to the memory block pointed to by destination
-                memcpy(oPermutation->baPath, oRoute->baPath, iSize * sizeof(byte));
-                oPermutation->baPath[oRoute->iSet] = oPermutation->baPath[i];
-                oPermutation->baPath[i] = c;
-                oPermutation->dLength = nl;
-                oPermutation->iSet = oRoute->iSet + 1;
-                zRoute(oPermutation, &oResult);
-                if (oResult->dLength < oBest->dLength) { //Best route so far?
-                    oBest = oResult;
-                    if (oBest->dLength < dGlobalBest) {
-                        dGlobalBest = oBest->dLength;
-                    }
-                }
-            }
-        }
+        zRoute_sequential(oRoute, c, reply, count);
     }
+
     return;
 }
 
@@ -207,6 +225,7 @@ main(int argc, char *argv[]) {
         n_cores = 4;
     }
 
+    count = n_cores;
     printf("\nthe number of cities is: %d\n the map is: %d x %d\n", iSize, max_x, max_y);
 
 
@@ -226,7 +245,7 @@ main(int argc, char *argv[]) {
     oOriginalRoute->iSet=1;
 
     start=second();
-    zRoute(oOriginalRoute,&r);  //Find the best route:)
+    zRoute(oOriginalRoute,&r, count);  //Find the best route:)
     stop=second();
     printf("%d cores used.\nRoute length is %lf found in %lf seconds\n", n_cores, dGlobalBest,stop-start);
 }
